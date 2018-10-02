@@ -1,0 +1,15 @@
+package org.richardliao.bookmanaging.books;
+
+import static org.springframework.web.bind.annotation.RequestMethod.*;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@RestController
+@RequestMapping("/")
+public class HelloBookManagingController {
+
+	@RequestMapping(method=GET)
+	public String home() {
+		return "hello, this is book service";
+	}
+}
