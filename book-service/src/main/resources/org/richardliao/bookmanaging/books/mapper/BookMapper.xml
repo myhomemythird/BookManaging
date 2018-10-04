@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.richardliao.bookmanaging.books.mapper.BookMapper">
+  <select id="getBookList" resultType="Book">
+    select id, title, auth, description from book;
+  </select>
+  
+  <select id="getBookById" resultType="Book">
+    select id, title, auth, description
+    from book
+    where id = #{id}
+  </select>
+  
+  <insert id="add">
+    insert into
+    book (id, title, auth, description)
+    values
+    (#{id}, #{title}, #{auth}, #{description})
+  </insert>
+  
+  <update id="update">
+    update book
+    set
+    title = #{title},
+    auth = #{auth},
+    description = #{description}
+    where id = #{id}
+  </update>
+  
+  <delete id="delete">
+    delete
+    from book
+    where id = #{id}
+  </delete>
+</mapper>
