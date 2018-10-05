@@ -1,0 +1,16 @@
+<task-logs>
+  <task-log topic="Book Managing System">
+    <analysis name="Attitudes">
+      1. Learning is the 1st.
+    </analysis>
+    <analysis name="Backgounds">
+      1. I hv built RESTFul API for book service.
+      2. I need to learn VUE.
+    </analysis>
+    <analysis name="Materails">
+      1. Design mind map.
+    </analysis>
+    <log name="default">
+    </log>
+  </task-log>
+</task-logs>

@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
+import javax.ws.rs.QueryParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import org.richardliao.bookmanaging.books.domain.Book;
 import org.richardliao.bookmanaging.books.mapper.BookMapper;
+import org.richardliao.bookmanaging.books.CommonResponce;
 
 @RestController
 @RequestMapping(value="/library", produces="application/json")
@@ -22,37 +25,43 @@ public class BookService {
     private BookMapper bookMapper;
 
     @RequestMapping(value="/books", method=GET)
-    public List<Book> bookList() {
+    public Object bookList(@QueryParam("title") String title, @QueryParam("auth") String auth) {
         Map<String, String> query = new HashMap<>();
-	return bookMapper.getBookList(query);
+	if (null != title && !"".equals(title.trim())) query.put("title", title);
+	if (null != auth && !"".equals(auth.trim())) query.put("auth", auth);
+	List<Book> res = bookMapper.getBookList(query);
+	return new CommonResponce(0, res);
     }
 
     @RequestMapping(value="/book/{id}", method=GET)
-    public Book bookDetail(@PathVariable("id") String id) {
-	return bookMapper.getBookById(id);
+    public Object bookDetail(@PathVariable("id") String id) {
+	Book res = bookMapper.getBookById(id);
+	return new CommonResponce(0, res);
     }
 
     @RequestMapping(value="/book", method=POST)
-    public String addBook(@RequestBody Book book) {
-	if (null == book || null == book.getId()) return "Failed. Book or Book.id is null!";
+    public Object addBook(@RequestBody Book book) {
+	if (null == book || null == book.getId())
+	    return new CommonResponce(1, "Failed. Book or Book.id is null!");
 	bookMapper.add(book);
-	return "succeed";
+	return new CommonResponce(0, book);
     }
 
     @RequestMapping(value="/book", method=PUT)
-    public String updateBook(@RequestBody Book book) {
-	if (null == book || null == book.getId()) return "Failed. Book or Book.id is null!";
+    public Object updateBook(@RequestBody Book book) {
+	if (null == book || null == book.getId())
+	    return new CommonResponce(1, "Failed. Book or Book.id is null!");
 	Book bookDb = bookMapper.getBookById(book.getId());
-	if (null == bookDb) return "Failed. No Book [" + book.getId() + "] found!";
+	if (null == bookDb) return new CommonResponce(1, "Failed. No Book [" + book.getId() + "] found!");
 	bookMapper.update(book);
-	return "succeed";
+	return new CommonResponce(0, book);
     }
 
     @RequestMapping(value="/book/{id}", method=DELETE)
-    public String deleteBook(@PathVariable("id") String id) {
+    public Object deleteBook(@PathVariable("id") String id) {
 	Book bookDb = bookMapper.getBookById(id);
-        if (null == bookDb) return "Failed. No Book [" + id + "] found!";
+        if (null == bookDb) return new CommonResponce(1, "Failed. No Book [" + id + "] found!");
 	bookMapper.delete(id);
-	return "succeed";
+	return new CommonResponce(0, bookDb);
     }
 }

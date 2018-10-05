@@ -1,4 +1,4 @@
-package org.richardliao.bookmanaging.books.domain;
+package org.richardliao.bookmanaging.users.domain;
 
 public class User {
     private String id;
@@ -27,5 +27,16 @@ public class User {
 
     public String getRoleId() {
 	return this.roleId;
+    }
+
+    public String toString() {
+	StringBuilder sb = new StringBuilder();
+	sb.append("User [");
+	sb.append("id=").append(this.id).append(",");
+	sb.append("account=").append(this.account).append(",");
+	sb.append("password=").append(this.password).append(",");
+	sb.append("roleId=").append(this.roleId);
+	sb.append("]");
+	return sb.toString();
     }
 }
