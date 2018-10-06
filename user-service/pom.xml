@@ -4,15 +4,13 @@
   <groupId>org.richard</groupId>
   <artifactId>user-service</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOR</version>
+  <version>1.0-SNAPSHOT</version>
   <name>user-service</name>
   <url>http://maven.apache.org</url>
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+
+  <parent>
+    <groupId>org.richard</groupId>
+    <artifactId>books-managing</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
 </project>

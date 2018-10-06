@@ -6,11 +6,36 @@
     <analysis name="Backgounds">
       1. I hv built RESTFul API for book service.
       2. I need to learn VUE.
+      3. RESTFul APIs for user service r OK.
+      4. RESTFul APIs r easy to build. The hard part is to build pages.
+      5. I plan to user dockers to start services. And I try to build a CI progress.
+      6. I am learning to build front end of book managing system. It's funny.
     </analysis>
     <analysis name="Materails">
       1. Design mind map.
     </analysis>
     <log name="default">
+      Java configs
+       class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer
+        protected Class&lt;?>[] getRootConfigClasses() {}
+        protected Class&lt;?>[] getServletConfigClasses() {}
+	protected String[] getServletMappings() {}
+       WebConfig @Configuration @EnableWebMvc @ComponentScan
+       RootConfig @Configuration @ComponentScan
+       DataSourceConfiguration @Configuration - MyBatis
+        public DataSource driverManagerDataSource() {}
+        public SqlSessionFactory sqlSessionFactory(ApplicationContext applicationContext, DataSource ds) throws Exception {
+	public MapperScannerConfigurer mapperScannerConfigurer() {}
+    </log>
+    <log name="Front_End">
+     $ cd my-project
+     $ npm install
+     $ npm run dev
+     > Listening at http://localhost:8080
+     ========
+     Problems
+      1. The request is successful according to 'Network', but it always goes into 'catch{}' in coding. Why?
+     ========
     </log>
   </task-log>
 </task-logs>

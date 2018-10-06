@@ -1,4 +1,4 @@
-package org.richardliao.bookmanaging.books.config;
+package org.richardliao.bookmanaging.users.config;
 
 import javax.sql.DataSource;
 
@@ -29,15 +29,15 @@ public class DataSourceConfiguration {
     public SqlSessionFactory sqlSessionFactory(ApplicationContext applicationContext, DataSource ds) throws Exception {
 	SqlSessionFactoryBean ssfb = new SqlSessionFactoryBean();
 	ssfb.setDataSource(ds);
-	ssfb.setTypeAliasesPackage("org.richardliao.bookmanaging.books.domain");
-	ssfb.setMapperLocations(applicationContext.getResources("classpath:org/richardliao/bookmanaging/books/mapper/BookMapper.xml"));
+	ssfb.setTypeAliasesPackage("org.richardliao.bookmanaging.users.domain");
+	ssfb.setMapperLocations(applicationContext.getResources("classpath:org/richardliao/bookmanaging/users/mapper/UserMapper.xml"));
 	return ssfb.getObject();
     }
 
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer() {
 	MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
-	mapperScannerConfigurer.setBasePackage("org.richardliao.bookmanaging.books.mapper");
+	mapperScannerConfigurer.setBasePackage("org.richardliao.bookmanaging.users.mapper");
 	mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactory");
 	return mapperScannerConfigurer;
     }

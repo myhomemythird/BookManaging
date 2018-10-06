@@ -19,7 +19,7 @@ import org.richardliao.bookmanaging.users.CommonResponce;
 
 @RestController
 @RequestMapping(value="/library", produces="application/json")
-public class BookService {
+public class UserService {
 
     @Autowired
     private UserMapper userMapper;
@@ -27,15 +27,15 @@ public class BookService {
     @RequestMapping(value="/users", method=GET)
     public Object userList(@QueryParam("account") String account, @QueryParam("roleId") String roleId) {
         Map<String, String> query = new HashMap<>();
-	if (null != title && !"".equals(title.trim())) query.put("title", title);
-	if (null != auth && !"".equals(auth.trim())) query.put("auth", auth);
-	List<Book> res = userMapper.getUserList(query);
+	if (null != account && !"".equals(account.trim())) query.put("account", account);
+	if (null != roleId && !"".equals(roleId.trim())) query.put("roleId", roleId);
+	List<User> res = userMapper.getUserList(query);
 	return new CommonResponce(0, res);
     }
 
     @RequestMapping(value="/user/{id}", method=GET)
     public Object userDetail(@PathVariable("id") String id) {
-	Book res = userMapper.getUserById(id);
+        User res = userMapper.getUserById(id);
 	return new CommonResponce(0, res);
     }
 

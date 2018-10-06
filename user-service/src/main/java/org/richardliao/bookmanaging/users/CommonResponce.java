@@ -1,4 +1,4 @@
-package org.richardliao.bookmanaging.books;
+package org.richardliao.bookmanaging.users;
 
 public class CommonResponce {
     private Integer retCode;

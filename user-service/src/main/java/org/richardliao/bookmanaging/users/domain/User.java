@@ -6,6 +6,8 @@ public class User {
     private String password;
     private String roleId;
 
+    public User() {}
+    
     public User(String id, String account, String password, String roleId) {
 	this.id = id;
 	this.account = account;

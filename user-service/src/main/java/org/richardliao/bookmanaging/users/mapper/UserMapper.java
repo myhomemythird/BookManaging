@@ -1,18 +1,18 @@
-package org.richardliao.bookmanaging.books.mapper;
+package org.richardliao.bookmanaging.users.mapper;
 
 import java.util.List;
 import java.util.Map;
 
-import org.richardliao.bookmanaging.books.domain.Book;
+import org.richardliao.bookmanaging.users.domain.User;
 
-public interface BookMapper {
-    List<Book> getBookList(Map<String, String> query);
+public interface UserMapper {
+    List<User> getUserList(Map<String, String> query);
 
-    Book getBookById(String id);
+    User getUserById(String id);
 
-    int add(Book book);
+    int add(User user);
 
-    int update(Book book);
+    int update(User user);
 
     int delete(String id);
 }
