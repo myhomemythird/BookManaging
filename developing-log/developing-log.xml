@@ -35,6 +35,8 @@
      ========
      Problems
       1. The request is successful according to 'Network', but it always goes into 'catch{}' in coding. Why?
+       Cross Domain
+        Add CORS config in server
      ========
     </log>
   </task-log>
