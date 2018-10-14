@@ -4,8 +4,11 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import axios from 'axios'
+import GlobalConfig from '../static/config/global.js'
 
 Vue.prototype.$ajax = axios;
+Vue.prototype.GlobalConfig = GlobalConfig;
+axios.defaults.baseURL = GlobalConfig.serviceUrl;
 
 Vue.config.productionTip = false
 

@@ -1,23 +1,22 @@
 <template>
   <div>
-    <h1>{{ title }}</h1>
-    <h2>Book List</h2>
+    <h2>Searching Page</h2>
     Title: <input type="text" id="title" v-model="search.title" />
     Auth: <input type="text" id="auth" v-model="search.auth" />
     <button type="button" name="Search_Book_List" v-on:click="getBookList" >Go</button>
+    <br />
+    <br />
     <div v-if="hasBooks">
       <table id="books">
         <tr>
           <th>Book ID</th>
           <th>Title</th>
           <th>Auth</th>
-          <th>Description</th>
         </tr>
         <tr v-for="(row, i) in bookList" v-bind:class="{'alt': isEven(i)}">
           <td>{{ row.id }}</td>
-          <td>{{ row.title }}</td>
+          <td><router-link :to="{name: 'BookDetails', params: {bookid: row.id}}" >{{ row.title }}</router-link></td>
           <td>{{ row.auth }}</td>
-          <td>{{ row.description }}</td>
         </tr>
       </table>
     </div>
@@ -27,12 +26,33 @@
           <th>Book ID</th>
           <th>Title</th>
           <th>Auth</th>
-          <th>Description</th>
         </tr>
         <tr>
-          <td colspan="4" align="center">No Result Found</td>
+          <td colspan="3" align="center">No Result Found</td>
         </tr>
       </table>
+    </div>
+    <br />
+    <br />
+    <div>
+      <h2>Adding Books</h2>
+      <table>
+        <tr id="books">
+          <th>Book ID</th>
+          <th>Title</th>
+          <th>Auth</th>
+          <th>Description</th>
+          <th>Publish Date</th>
+        </tr>
+        <tr>
+          <td><input type="text" id="id" v-model="newBook.id" /></td>
+          <td><input type="text" id="title" v-model="newBook.title" /></td>
+          <td><input type="text" id="auth" v-model="newBook.auth" /></td>
+          <td><input type="text" id="description" v-model="newBook.description" /></td>
+          <td><input type="text" id="publishDate" v-model="newBook.publishDate" /></td>
+        </tr>
+      </table>
+      <button type="button" name="Add_Book" v-on:click="addBook" >Add</button>
     </div>
   </div>
 </template>
@@ -42,10 +62,13 @@ export default {
   name: 'BookManaging',
   data () {
     return {
-      title: 'Book Managing System',
       search: {title: '', auth: ''},
-      bookList: []
+      bookList: [],
+      newBook: {}
     }
+  },
+  mounted () {
+    this.getBookList();
   },
   methods: {
       isEven: function(i) {
@@ -55,7 +78,7 @@ export default {
           return this.bookList.length > 0;
       },
       getBookList: function() {
-          this.$ajax.get('http://localhost:8080/book-service/library/books', {
+          this.$ajax.get(this.GlobalConfig.bookServiceUrl + '/books', {
             params: {
               title: this.search.title,
               auth: this.search.auth
@@ -67,6 +90,9 @@ export default {
           .catch(error => {
               console.log('请求失败：'+error);
           });
+      },
+      addBook: function() {
+        this.$ajax.post().then().catch();
       }
   }
 

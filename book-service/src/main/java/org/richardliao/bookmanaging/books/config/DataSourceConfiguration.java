@@ -19,7 +19,7 @@ public class DataSourceConfiguration {
     public DataSource driverManagerDataSource() {
 	DriverManagerDataSource ds = new DriverManagerDataSource();
 	ds.setDriverClassName("com.mysql.jdbc.Driver");
-	ds.setUrl("jdbc:mysql://localhost:3306/bookmanaging");
+	ds.setUrl("jdbc:mysql://localhost:3306/bookmanaging?serverTimezone=UTC");
 	ds.setUsername("root");
 	ds.setPassword("");
 	return ds;

@@ -7,8 +7,7 @@
     select
         id,
 	title,
-	auth,
-        description
+	auth
     from book
     <where>
       1=1
@@ -18,16 +17,16 @@
   </select>
   
   <select id="getBookById" resultType="Book">
-    select id, title, auth, description
+    select id, title, auth, description, publish_date publishDate
     from book
     where id = #{id}
   </select>
   
   <insert id="add">
     insert into
-    book (id, title, auth, description)
+    book (id, title, auth, description, publish_date, adding_date)
     values
-    (#{id}, #{title}, #{auth}, #{description})
+    (#{id}, #{title}, #{auth}, #{description}, #{publishDate}, #{addingDate})
   </insert>
   
   <update id="update">
@@ -35,7 +34,9 @@
     set
     title = #{title},
     auth = #{auth},
-    description = #{description}
+    description = #{description},
+    publish_date = #{publishDate},
+    adding_date = #{addingDate}
     where id = #{id}
   </update>
   

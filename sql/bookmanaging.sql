@@ -38,5 +38,14 @@ insert into `role`(id, name, description, resource)
 values
 ('r01552', 'Admin', 'Administation account', ''),
 ('r01553', 'user', 'User role', '');
+----------------------------------------------
 
+alter table book add publish_date datetime;
+alter table book add adding_date datetime;
+
+update book
+set publish_date = '2018-10-01';
+
+update book
+set adding_date = '2018-10-01';
 

@@ -37,7 +37,12 @@
       1. The request is successful according to 'Network', but it always goes into 'catch{}' in coding. Why?
        Cross Domain
         Add CORS config in server
+      2. How to call API after page is loaded?
+       mounted () {
+        //functions
+       }
      ========
+     &lt;router-link :to="{name: 'BookDetails', params: {bookid: row.id}}" >{{ row.title }}&lt;/router-link>  
     </log>
   </task-log>
 </task-logs>

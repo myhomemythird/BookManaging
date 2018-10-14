@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <h1>Book Managing System</h1>
     <router-view/>
   </div>
 </template>
