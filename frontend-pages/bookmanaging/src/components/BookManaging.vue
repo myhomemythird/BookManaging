@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Searching Page</h2>
+    <h2>Searching Books</h2>
     Title: <input type="text" id="title" v-model="search.title" />
     Auth: <input type="text" id="auth" v-model="search.auth" />
     <button type="button" name="Search_Book_List" v-on:click="getBookList" >Go</button>
@@ -52,6 +52,9 @@
           <td><input type="text" id="publishDate" v-model="newBook.publishDate" /></td>
         </tr>
       </table>
+      <div v-if="isCallSucessful | isCallingError">
+        <label>{{ addingMessage }}</label><br />
+      </div>
       <button type="button" name="Add_Book" v-on:click="addBook" >Add</button>
     </div>
   </div>
@@ -64,7 +67,10 @@ export default {
     return {
       search: {title: '', auth: ''},
       bookList: [],
-      newBook: {}
+      newBook: {},
+      isCallSucessful: false,
+      isCallingError: false,
+      addingMessage: 'Test'
     }
   },
   mounted () {
@@ -92,7 +98,25 @@ export default {
           });
       },
       addBook: function() {
-        this.$ajax.post().then().catch();
+        this.$ajax.post(this.GlobalConfig.bookServiceUrl + '/book', this.newBook)
+        .then(function(resp) {
+          console.log(resp.data);
+          this.isCallSucessful = true;
+          this.isCallingError = false;
+          if (resp.data.retCode == 0) {
+            this.addingMessage = 'Adding Book Successful!';
+            this.newBook = {};
+            this.getBookList();
+          } else {
+            this.addingMessage = resp.data.obj;
+          }
+        }.bind(this))
+        .catch(function(error) {
+          console.log('请求失败：'+error);
+          this.isCallSucessful = false;
+          this.isCallingError = true;
+          this.addingMessage = 'Adding Book Fail!' + error;
+        }.bind(this));
       }
   }
 
