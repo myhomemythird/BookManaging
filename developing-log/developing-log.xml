@@ -42,7 +42,10 @@
         //functions
        }
      ========
-     &lt;router-link :to="{name: 'BookDetails', params: {bookid: row.id}}" >{{ row.title }}&lt;/router-link>  
+     &lt;router-link :to="{name: 'BookDetails', params: {bookid: row.id}}" >{{ row.title }}&lt;/router-link>
+     =======
+     find lib/ -user richard -exec mv {} ~/JavaLib/bak/ \;
+     mvn dependency:copy-dependencies -DoutputDirectory=/opt/tomcat8/webapps/book-service/WEB-INF/lib  -DincludeScope=runtime
     </log>
   </task-log>
 </task-logs>
