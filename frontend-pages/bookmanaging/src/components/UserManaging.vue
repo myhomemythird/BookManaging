@@ -11,11 +11,13 @@
         <tr>
           <th>User ID</th>
           <th>Account</th>
+          <th>User Name</th>
           <th>Role</th>
         </tr>
         <tr v-for="(row, i) in userList" v-bind:class="{'alt': isEven(i)}">
           <td>{{ row.id }}</td>
-          <td>{{ row.account }}</td>
+          <td><router-link :to="{name: 'UserDetails', params: {userid: row.id}}" >{{ row.account }}</router-link></td>
+          <td>{{ row.name }}</td>
           <td>{{ row.roleId }}</td>
         </tr>
       </table>
@@ -25,37 +27,13 @@
         <tr>
           <th>User ID</th>
           <th>Account</th>
+          <th>User Name</th>
           <th>Role</th>
         </tr>
         <tr>
           <td colspan="3" align="center">No Result Found</td>
         </tr>
       </table>
-    </div>
-    <br />
-    <br />
-    <div>
-      <h2>Adding Users</h2>
-      <table>
-        <tr id="users">
-          <th>Book ID</th>
-          <th>Title</th>
-          <th>Auth</th>
-          <th>Description</th>
-          <th>Publish Date</th>
-        </tr>
-        <tr>
-          <td><input type="text" id="id" v-model="newBook.id" /></td>
-          <td><input type="text" id="title" v-model="newBook.title" /></td>
-          <td><input type="text" id="auth" v-model="newBook.auth" /></td>
-          <td><input type="text" id="description" v-model="newBook.description" /></td>
-          <td><input type="text" id="publishDate" v-model="newBook.publishDate" /></td>
-        </tr>
-      </table>
-      <div v-if="isCallSucessful | isCallingError">
-        <label>{{ addingMessage }}</label><br />
-      </div>
-      <button type="button" name="Add_Book" v-on:click="addBook" disabled="true">Add</button>
     </div>
   </div>
 </template>
@@ -66,15 +44,11 @@ export default {
   data () {
     return {
       search: {roleId: '', account: ''},
-      userList: [],
-      newBook: {},
-      isCallSucessful: false,
-      isCallingError: false,
-      addingMessage: 'Test'
+      userList: []
     }
   },
   mounted () {
-    this.getBookList();
+    this.getUserList();
   },
   methods: {
       isEven: function(i) {
@@ -96,27 +70,6 @@ export default {
           .catch(error => {
               console.log('请求失败：'+error);
           });
-      },
-      addBook: function() {
-        this.$ajax.post(this.GlobalConfig.userServiceUrl + '/book', this.newBook)
-        .then(function(resp) {
-          console.log(resp.data);
-          this.isCallSucessful = true;
-          this.isCallingError = false;
-          if (resp.data.retCode == 0) {
-            this.addingMessage = 'Adding Book Successful!';
-            this.newBook = {};
-            this.getBookList();
-          } else {
-            this.addingMessage = resp.data.obj;
-          }
-        }.bind(this))
-        .catch(function(error) {
-          console.log('请求失败：'+error);
-          this.isCallSucessful = false;
-          this.isCallingError = true;
-          this.addingMessage = 'Adding Book Fail!' + error;
-        }.bind(this));
       }
   }
 
